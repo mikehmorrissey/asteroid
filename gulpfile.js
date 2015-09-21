@@ -44,6 +44,29 @@ var buildBrowser = function () {
 	return deferred.promise;
 };
 
+var buildReactNative = function () {
+	console.log("Building for React Native");
+	var deferred = Q.defer();
+	gulp.src([
+		"src/platforms/react_native/wrapper/head.js",
+		"src/core/asteroid-constructor.js",
+		"src/core/lib/*.js",
+		"src/core/asteroid-methods.js",
+		"src/core/collection.js",
+		"src/core/login.js",
+		"src/core/set.js",
+		"src/core/subscription.js",
+		"src/platforms/react_native/*.js",
+		"src/platforms/react_native/wrapper/tail.js"
+	])
+		.pipe(concat("asteroid.react.native.js"))
+		.pipe(gulp.dest("dist/"))
+		.on("end", function () {
+			deferred.resolve();
+		});
+	return deferred.promise;
+};
+
 var buildChrome = function () {
 	console.log("Building for chrome");
 	var deferred = Q.defer();
@@ -129,6 +152,7 @@ gulp.task("build", function () {
 	buildBrowser();
 	buildChrome();
 	buildCordova();
+  buildReactNative();
 	buildNode();
 	buildPlugins();
 	buildTests();

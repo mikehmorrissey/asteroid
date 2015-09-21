@@ -6,3 +6,4 @@ sonar-project.properties
 .idea/
 .sonar/
 test/coverage/
+.DS_Store
